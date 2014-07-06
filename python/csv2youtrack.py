@@ -5,7 +5,7 @@ import datetime
 import sys
 import csvClient
 from csvClient.client import Client
-import csvClient.youtrackMapping
+import importlib
 import youtrack
 from youtrackImporter import *
 
@@ -17,6 +17,19 @@ from youtrack.importHelper import create_custom_field
 
 def main():
     source_file, target_url, target_login, target_password = sys.argv[1:5]
+    run(source_file, target_url, target_login, target_password, "youTrackMapping")
+
+def run(source_file, target_url, target_login, target_password, csv_client_mapping_module):
+    """
+    Used to run special csv client mapping (and not change the interface of main)
+    :param source_file:
+    :param target_url:
+    :param target_login:
+    :param target_password:
+    :param csv_client_mapping_module: Module with mapping to use for csv
+    :return:
+    """
+    importlib.import_module('csvClient.' + csv_client_mapping_module)
     csv2youtrack(source_file, target_url, target_login, target_password)
 
 
@@ -30,7 +43,7 @@ def csv2youtrack(source_file, target_url, target_login, target_password):
     target = Connection(target_url, target_login, target_password)
     source = Client(source_file)
 
-    config = CsvYouTrackImportConfig(csvClient.FIELD_NAMES, csvClient.FIELD_TYPES)
+    config = CsvYouTrackImportConfig(csvClient.FIELD_NAMES, csvClient.FIELD_TYPES, csvClient.CONVERSION)
     importer = CsvYouTrackImporter(source, target, config)
     importer.import_csv()
 

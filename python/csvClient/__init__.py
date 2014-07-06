@@ -30,5 +30,6 @@ FIELD_TYPES = {
     "Value"             :   "integer",
     "Marketing value"   :   "integer"
 }
+CONVERSION = {}
 
 CSV_DELIMITER = ","
