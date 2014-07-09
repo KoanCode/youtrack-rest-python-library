@@ -26,8 +26,7 @@ def main():
     source_file, target_url, target_login, target_password, project_id, start_number = sys.argv[1:7]
     importable_file, tag_file = prep_file(project_id, start_number, source_file)
     csv2youtrack.run(importable_file, target_url, target_login, target_password, "pivotalTrackerMapping")
-    # TODO, turned off http://youtrack.jetbrains.com/issue/JT-25499
-    #add_tags(tag_file, target_url, target_login, target_password)
+    add_tags(tag_file, target_url, target_login, target_password)
 
 def prep_file(project_id, start_number, file_in):
 
@@ -153,13 +152,8 @@ def add_tags(tag_file,target_url, target_login, target_password):
             issue = row[0]
             for t in row[1:]:
                 print "executing tag for %s" %(issue)
-                #target.executeCommand(issue, "tag 1.1") # not working
-                #target.executeCommand(issue, "Type Bug Priority Critical tag 1.1")
-                # TODO youtrack issue raised: http://youtrack.jetbrains.com/issue/JT-25499
-                #request = "/issue/%s/execute?" % (issue) + "command=add%20tag%201.1"
-                #request = "/issue/%s/execute?" %(issue) + ("command=exception&comment=exception%20naturally!") # works
-                #print "making request:%s" % (request)
-                #target._req("POST", request)
+                target.executeCommand(issue, "tag %s", (t))
+
 
 
 
