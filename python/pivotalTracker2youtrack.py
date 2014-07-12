@@ -152,7 +152,7 @@ def add_tags(tag_file,target_url, target_login, target_password):
             issue = row[0]
             for t in row[1:]:
                 print "executing tag for %s" %(issue)
-                target.executeCommand(issue, "tag %s", (t))
+                target.executeCommand(issue, "tag %s" % (t))
 
 
 
