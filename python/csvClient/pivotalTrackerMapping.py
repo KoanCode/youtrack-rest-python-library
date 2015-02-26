@@ -47,6 +47,7 @@ csvClient.FIELD_TYPES = {
 csvClient.CONVERSION = {
     'State': {
         'unstarted' : 'Submitted',
+        'unscheduled' : 'Submitted',
         'started'   : 'In Progress',
         'finished' : 'Fixed',
         'delivered' : 'Fixed',

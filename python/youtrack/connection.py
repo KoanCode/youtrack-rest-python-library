@@ -376,6 +376,8 @@ class Connection(object):
                 for comment in comments:
                     record += '    <comment'
                     for ca in comment:
+                        if isinstance(ca, tuple):
+                            ca = ca[0]
                         val = comment[ca]
                         if isinstance(ca, unicode):
                             ca = ca.encode('utf-8')
