@@ -347,8 +347,9 @@ class Connection(object):
             comments = None
             if getattr(issue, "getComments", None):
                 comments = issue.getComments()
-
             for issueAttr in issue:
+                if isinstance(issueAttr, tuple):
+                    issueAttr = issueAttr[0]
                 attrValue = issue[issueAttr]
                 if attrValue is None:
                     continue
